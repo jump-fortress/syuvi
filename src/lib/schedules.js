@@ -1,9 +1,12 @@
 import schedule from "node-schedule";
 import { EmbedBuilder, userMention, TextChannel } from "discord.js";
-import { getActiveTourney, getTourneyPlayers } from "./database.js";
+import { getActiveTourney, getTourneyPlayers, getTourneyPlayerUpdate } from "./database.js";
 import { timesChannelIds, signupsChannelId } from "./guild-ids.js";
 import { createTourneySheet, updateSheetTimes } from "./sheet.js";
 import { getMapEmbedByName, getTourneyTopTimesEmbed } from "./components.js";
+
+let lastSignupsUpdate = new Date(0);
+
 
 function startTourneyJob(datetime, channels) {
   const date = new Date(datetime); // from sqlite datetime
@@ -94,16 +97,31 @@ function endTourneyJob(datetime, channels, tourney) {
 async function updateSignupsJob(channel) {
   // messages only needed once (if editing)
 
-  const job = schedule.scheduleJob("* * * * *", async function () {
+  const job = schedule.scheduleJob("*/30 * * * * *", async function () {
     const tourney = getActiveTourney();
 
     // tourney has ended
     // TODO(spiritov): what's the .length() check here for? (switched to .length since array)
     // removed .length check
+    // this check should be first so the job is able to cancel
     if (!tourney) {
       console.log("updateSignupsJob() finished");
       job.cancel(false);
       return;
+    }
+
+    // i don't think this works but im too sleepy to figure it out
+    const lastUpdateResult = getTourneyPlayerUpdate(tourney.id);
+    if (lastUpdateResult) {
+      const lastTourneyPlayerUpdate = new Date(lastUpdateResult.updated_at);
+
+      if (lastSignupsUpdate > lastTourneyPlayerUpdate) {
+        console.log('it was greater than and stopped');
+        return;
+      }
+      else {
+        lastSignupsUpdate = lastTourneyPlayerUpdate;
+      }
     }
 
     // messages needed every time (if deleting and re-sending)
@@ -152,6 +170,7 @@ async function updateSignupsJob(channel) {
       const embed = EmbedBuilder.from(divisionEmbeds[divisionIdx]).setDescription(playerMentions);
 
       editPromises.push(divisionMessages[divisionIdx].delete());
+      //TODO(spiritov): these might not send in order.. account for itttt
       await channel.send({ embeds: [embed] });
     }
 

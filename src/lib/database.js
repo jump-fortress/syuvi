@@ -28,7 +28,7 @@ function openDB() {
     wood_map        TEXT,
     starts_at       DATETIME NOT NULL,
     ends_at         DATETIME NOT NULL,
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP)`,
+    created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP)`,
   ).run();
 
   db.prepare(
@@ -54,6 +54,13 @@ function openDB() {
     FOREIGN KEY (tournament_id) REFERENCES tournament (id),
     FOREIGN KEY (player_id) REFERENCES player (id))`,
   ).run();
+
+  //const now = (new Date(new Date().toUTCString())).toISOString();
+
+  // db.prepare(
+  //   `ALTER TABLE tournament_player ADD COLUMN
+  //   updated_at DATETIME NOT NULL DEFAULT '2025-07-01T00:00:00.000Z'`,
+  // ).run();
 }
 
 // insert a new player, if they don't exist, and returns them
@@ -245,16 +252,25 @@ function createTourneyPlayer(tournament_id, player_id, division_name) {
     db.prepare(`INSERT INTO tournament_player (tournament_id, player_id, division, signed_up)
     VALUES (?, ?, ?, TRUE)
     ON CONFLICT (tournament_id, player_id) DO UPDATE
-    SET signed_up = TRUE`);
+    SET signed_up = TRUE,
+    updated_at = strftime('%Y-%m-%dT%H:%M:%SZ', 'now')`);
   upsert.run(tournament_id, player_id, division_name);
 }
 
 // set signed_up to false, removing a player from the tourney
 function removeTourneyPlayer(tournament_id, player_id) {
   const update = db.prepare(`UPDATE tournament_player
-    SET signed_up = FALSE
+    SET signed_up = FALSE,
+    updated_at = strftime('%Y-%m-%dT%H:%M:%SZ', 'now')
     WHERE tournament_id = ? AND player_id = ?`);
   update.run(tournament_id, player_id);
+}
+
+function getTourneyPlayerUpdate(tournament_id) {
+  const select = db.prepare(`SELECT updated_at FROM tournament_player
+    WHERE tournament_id = ?
+    ORDER BY updated_at DESC`);
+  return select.get(tournament_id);
 }
 
 function getTourneyPlayer(tournament_id, player_id) {
@@ -262,6 +278,7 @@ function getTourneyPlayer(tournament_id, player_id) {
     WHERE tournament_id = ? AND player_id = ? AND signed_up = TRUE`);
   return select.get(tournament_id, player_id);
 }
+
 
 // return all tourney players and associated discord ids
 function getTourneyPlayers(tournament_id) {
@@ -380,6 +397,7 @@ export {
   getAllTourneys,
   createTourneyPlayer,
   removeTourneyPlayer,
+  getTourneyPlayerUpdate,
   getTourneyPlayer,
   getTourneyPlayers,
   createTourneyTime,
