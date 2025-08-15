@@ -63,7 +63,7 @@ function getTourneyTopTimesEmbed(tourney, division_name, roles) {
   ).color;
   const db_toptimes = getTourneyDivisionTopTimes(tourney.id, division_name);
   const toptimes = db_toptimes
-    .sort((a, b) => a.run_time - b.run_time)
+    .sort((a, b) => a.run_time - b.run_time) //TODO: this may be sorting twice.. already in database?
     .map((time) => Object.assign(time, { run_time: formatTime(time.run_time, time.verified) }));
   const embed = new EmbedBuilder().setColor(division_color)
     .setDescription(`### ${roleMention(divisionRoleIds.get(`${division_name} ${tourney.class}`))} Top 8
