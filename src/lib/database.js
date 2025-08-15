@@ -283,6 +283,7 @@ function getTourneyDivisionTopTimes(tournament_id, division_name) {
     JOIN tournament_player ON tournament_time.player_id = tournament_player.player_id
     WHERE tournament_time.tournament_id = ? AND tournament_player.division = ?
     GROUP BY player.id
+    ORDER BY run_time
     LIMIT 8`);
   return select.all(tournament_id, division_name);
 }
