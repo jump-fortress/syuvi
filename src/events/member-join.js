@@ -10,7 +10,7 @@ async function memberJoin(member) {
       await member.roles.add(soldierRole);
     }
     if (player.demo_division) {
-      const demoRole = roles.get(divisionRoleIds.get(`${player.soldier_division} Demo`));
+      const demoRole = roles.get(divisionRoleIds.get(`${player.demo_division} Demo`));
       await member.roles.add(demoRole);
     }
   }
