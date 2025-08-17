@@ -93,7 +93,7 @@ async function createTourneySheet(tourney) {
   await sheet.updateProperties({ hidden: false });
   await sheet.loadCells("B3:M3");
   await sheet.loadCells("B1:M1");
-  await sheet.loadCells("A57:B57");
+  await sheet.loadCells("A57:B81"); // TODO: 25 additional rows as a temporary measure
   const titleCell = sheet.getCellByA1("B1");
   const tourney_idCell = sheet.getCellByA1("A57");
   titleCell.value = `${tourney.class} Tournament Standings (${tourney_date.toLocaleDateString("en-US", { month: "long", year: "numeric" })})`;
