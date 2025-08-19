@@ -5,7 +5,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName("setdisplayname")
     .setDescription("update a player's display name from their discord nickname")
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+    .setDefaultMemberPermissions(PermissionFlagsBits.CreatePrivateThreads)
     .addUserOption((option) => option.setName("player").setDescription("@user").setRequired(true)),
   async execute(interaction) {
     await interaction.deferReply(); //thinking...

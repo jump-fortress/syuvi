@@ -30,7 +30,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName("forcesubmit")
     .setDescription("force submit a time for a player")
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+    .setDefaultMemberPermissions(PermissionFlagsBits.CreatePrivateThreads)
     .addUserOption((option) => option.setName("player").setDescription("@user").setRequired(true))
     .addStringOption((option) =>
       option.setName("time").setDescription("format: MM:SS.ss").setRequired(true),

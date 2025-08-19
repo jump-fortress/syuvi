@@ -21,11 +21,12 @@
 `/removetime [time_id]` - remove a player's time\
 `/echo [#channel]` - echo last message sent (in this channel) to another channel
 
-<ins>ManageMessages Commands</ins>\
+<ins>CreatePrivateThreads Commands</ins>\
 `/setdisplayname [@user]` - update a player's display name (sheet alias) using their server nickname\
 `/setdivision [@user] [class] [division]` - update a player's division\
 `/verify [time_id]` - verify a previously unverified tournament time\
-`/forcesubmit [@user] [time]` - force submit a time for a player
+`/forcesubmit [@user] [time]` - force submit a time for a player\
+`/profilebyname [display name] - view a player's profile by their associated display name
 
 ## Development
 

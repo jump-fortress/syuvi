@@ -10,7 +10,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName("profilebyname")
     .setDescription("view a player's profile")
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+    .setDefaultMemberPermissions(PermissionFlagsBits.CreatePrivateThreads)
     .addStringOption((option) =>
       option.setName("player").setDescription("display name").setRequired(true),
     ),

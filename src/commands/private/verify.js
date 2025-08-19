@@ -23,7 +23,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName("verify")
     .setDescription("verify a player's tourney time")
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+    .setDefaultMemberPermissions(PermissionFlagsBits.CreatePrivateThreads)
     .addIntegerOption((option) =>
       option
         .setName("time_id")

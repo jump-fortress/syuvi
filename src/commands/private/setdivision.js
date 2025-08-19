@@ -6,7 +6,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName("setdivision")
     .setDescription("update a player's division")
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+    .setDefaultMemberPermissions(PermissionFlagsBits.CreatePrivateThreads)
     .addUserOption((option) => option.setName("player").setDescription("@user").setRequired(true))
     .addStringOption((option) =>
       option
