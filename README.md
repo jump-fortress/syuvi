@@ -26,7 +26,7 @@
 `/setdivision [@user] [class] [division]` - update a player's division\
 `/verify [time_id]` - verify a previously unverified tournament time\
 `/forcesubmit [@user] [time]` - force submit a time for a player\
-`/profilebyname [display name] - view a player's profile by their associated display name
+`/profilebyname [display name]` - view a player's profile by their associated display name
 
 ## Development
 
