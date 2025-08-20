@@ -260,7 +260,9 @@ async function executeCommand(interaction) {
       submittedMapFields.getTextInputValue("silver_map"),
       submittedMapFields.getTextInputValue("bronze_map"),
       submittedMapFields.getTextInputValue("steel_map"),
-      tourneyClass === "Soldier" ? submittedMapFields.getTextInputValue("wood_map") : null,
+      tourneyClass === "Soldier"
+        ? submittedMapFields.getTextInputValue("wood_map")
+        : submittedMapFields.getTextInputValue("wood_map"),
       datetime,
       endDatetime,
     );
@@ -275,7 +277,7 @@ Platinum / Gold Map: ${inlineCode(submittedTourney.plat_gold)}
 Silver Map: ${inlineCode(submittedTourney.silver)}
 Bronze Map: ${inlineCode(submittedTourney.bronze)}
 Steel Map: ${inlineCode(submittedTourney.steel)}
-${tourneyClass === "Soldier" ? `Wood Map: ${inlineCode(submittedTourney.wood)}` : ``}`,
+${tourneyClass === "Soldier" ? `Wood Map: ${inlineCode(submittedTourney.wood)}` : `Wood Map: ${inlineCode(submittedTourney.wood)}`}`,
       components: [confirmRow],
       withResponse: true,
     });

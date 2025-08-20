@@ -41,15 +41,20 @@ function isValidTime(time) {
 }
 
 function getDivisionNames(tourneyClass) {
-  const divisions = ["Platinum", "Gold", "Silver", "Bronze", "Steel"];
+  const divisions = ["Platinum", "Gold", "Silver", "Bronze", "Steel", "Wood", "No Division"];
 
-  if (tourneyClass === "Soldier") {
-    divisions.push("Wood");
+  // if (tourneyClass === "Soldier") {
+  //divisions.push("Wood");
+  // }
+
+  //divisions.push("No Division");
+
+  // i know
+  if (tourneyClass) {
+    return divisions;
+  } else {
+    return divisions;
   }
-
-  divisions.push("No Division");
-
-  return divisions;
 }
 
 export {

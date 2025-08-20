@@ -44,12 +44,12 @@ function startTourneyJob(datetime, channels) {
       content: `🏁 A ${tourney.class} tourney has started! The map is..`,
       embeds: [await getMapEmbedByName(tourney.steel_map)],
     });
-    if (tourney.class === "Soldier") {
-      channels.get(timesChannelIds.get("Wood")).send({
-        content: `🏁 A ${tourney.class} tourney has started! The map is..`,
-        embeds: [await getMapEmbedByName(tourney.wood_map)],
-      });
-    }
+    // if (tourney.class === "Soldier") {
+    channels.get(timesChannelIds.get("Wood")).send({
+      content: `🏁 A ${tourney.class} tourney has started! The map is..`,
+      embeds: [await getMapEmbedByName(tourney.wood_map)],
+    });
+    // }
   });
 }
 
@@ -89,12 +89,12 @@ function endTourneyJob(datetime, channels, tourney) {
       content: `🏁 Tourney has ended! If you have a valid time to submit, please do so manually.`,
       embeds: [getTourneyTopTimesEmbed(tourney, "Steel", roles)],
     });
-    if (tourney.class === "Soldier") {
-      channels.get(timesChannelIds.get("Wood")).send({
-        content: `🏁 Tourney has ended! If you have a valid time to submit, please do so manually.`,
-        embeds: [getTourneyTopTimesEmbed(tourney, "Wood", roles)],
-      });
-    }
+    // if (tourney.class === "Soldier") {
+    channels.get(timesChannelIds.get("Wood")).send({
+      content: `🏁 Tourney has ended! If you have a valid time to submit, please do so manually.`,
+      embeds: [getTourneyTopTimesEmbed(tourney, "Wood", roles)],
+    });
+    // }
   });
 }
 
@@ -143,7 +143,9 @@ async function updateSignupsJob(channel) {
     }
 
     // early return when nothing about tournament_player has changed
-    if (isUpdated.signups) { return; }
+    if (isUpdated.signups) {
+      return;
+    }
     isUpdated.signups = true;
 
     let allSignupMessages = await channel.messages.fetch({ limit: 100 });

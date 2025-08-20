@@ -29,9 +29,9 @@ const confirmRow = new ActionRowBuilder().addComponents(
  */
 function getEmptyDivisionEmbeds(tourney_class, roles) {
   const divisions = ["Platinum", "Gold", "Silver", "Bronze", "Steel"];
-  if (tourney_class === "Soldier") {
-    divisions.push("Wood");
-  }
+  //if (tourney_class === "Soldier") {
+  divisions.push("Wood");
+  // }
   divisions.push("No Division");
 
   const embeds = [];
@@ -103,9 +103,9 @@ function getMapSelectModal(tourneyClass) {
   const steelMapRow = new ActionRowBuilder().addComponents(steelMap);
   const woodMapRow = new ActionRowBuilder().addComponents(woodMap);
   modal.addComponents(platGoldMapRow, silverMapRow, bronzeMapRow, steelMapRow);
-  if (tourneyClass === "Soldier") {
-    modal.addComponents(woodMapRow); // wood only applies to soldier
-  }
+  // if (tourneyClass === "Soldier") {
+  modal.addComponents(woodMapRow); // wood only applies to soldier
+  // }
   return modal;
 }
 

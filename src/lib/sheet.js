@@ -111,9 +111,9 @@ async function createTourneySheet(tourney) {
   mapCells.silver.value = tourney.silver_map;
   mapCells.bronze.value = tourney.bronze_map;
   mapCells.steel.value = tourney.steel_map;
-  if (tourney.class === "Soldier") {
-    mapCells.wood.value = tourney.wood_map;
-  }
+  // if (tourney.class === "Soldier") {
+  mapCells.wood.value = tourney.wood_map;
+  // }
   await sheet.saveUpdatedCells();
   sheet.loadHeaderRow(6); // header row is always 6
   updateSheetTimes(tourney);

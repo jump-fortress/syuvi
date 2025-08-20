@@ -42,37 +42,38 @@ export default {
       name: divisionName === "None" ? null : divisionName,
     };
 
-    if (division.name === "Wood" && division.class === "Demo") {
-      await interaction.editReply(`❌ Wood Demo is not a valid role.`);
-    } else {
-      const roleToAdd = member.guild.roles.cache.get(
-        divisionRoleIds.get(`${division.name} ${division.class}`),
-      );
-      const roleToRemove = member.roles.cache.find((role) => role.name.includes(division.class));
-      let messageContent = ``;
-      if (roleToRemove) {
-        // if an old role exists, remove it
-        await member.roles.remove(roleToRemove);
-        messageContent += `removed ${roleMention(roleToRemove.id)} from ${userMention(member.id)}\n`;
-      }
-      // don't add wood demo role
-      if (division.name) {
-        // if there is a role to add, add it
-        await member.roles.add(roleToAdd);
-        messageContent += `added ${roleMention(roleToAdd.id)} to ${userMention(member.id)}`;
-      }
-      updatePlayerDivision(member.id, division);
-      if (messageContent !== "") {
-        await interaction.editReply({
-          content: messageContent,
-          allowedMentions: { users: [], roles: [] },
-        });
-      } else {
-        await interaction.editReply({
-          content: `❌ ${userMention(member.id)} doesn't have a ${division.class} role to remove.`,
-          allowedMentions: { users: [], roles: [] },
-        });
-      }
+    //
+    // if (division.name === "Wood" && division.class === "Demo") {
+    //   await interaction.editReply(`❌ Wood Demo is not a valid role.`);
+    // } else {
+    const roleToAdd = member.guild.roles.cache.get(
+      divisionRoleIds.get(`${division.name} ${division.class}`),
+    );
+    const roleToRemove = member.roles.cache.find((role) => role.name.includes(division.class));
+    let messageContent = ``;
+    if (roleToRemove) {
+      // if an old role exists, remove it
+      await member.roles.remove(roleToRemove);
+      messageContent += `removed ${roleMention(roleToRemove.id)} from ${userMention(member.id)}\n`;
     }
+    // don't add wood demo role
+    if (division.name) {
+      // if there is a role to add, add it
+      await member.roles.add(roleToAdd);
+      messageContent += `added ${roleMention(roleToAdd.id)} to ${userMention(member.id)}`;
+    }
+    updatePlayerDivision(member.id, division);
+    if (messageContent !== "") {
+      await interaction.editReply({
+        content: messageContent,
+        allowedMentions: { users: [], roles: [] },
+      });
+    } else {
+      await interaction.editReply({
+        content: `❌ ${userMention(member.id)} doesn't have a ${division.class} role to remove.`,
+        allowedMentions: { users: [], roles: [] },
+      });
+    }
+    // }
   },
 };

@@ -51,14 +51,14 @@ export default {
         }
       } else {
         // run normally
-        if (tourney.class === "Demo" && division_name === "Wood") {
-          interaction.editReply("There is no Wood Demo leaderboard..");
-        } else {
-          // embed for selected division
-          interaction.editReply({
-            embeds: [getTourneyTopTimesEmbed(tourney, division_name, interaction.guild.roles)],
-          });
-        }
+        // if (tourney.class === "Demo" && division_name === "Wood") {
+        //   interaction.editReply("There is no Wood Demo leaderboard..");
+        // } else {
+        // embed for selected division
+        interaction.editReply({
+          embeds: [getTourneyTopTimesEmbed(tourney, division_name, interaction.guild.roles)],
+        });
+        // }
       }
     }
   },

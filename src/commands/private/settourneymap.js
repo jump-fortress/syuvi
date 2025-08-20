@@ -32,8 +32,8 @@ export default {
     const isOngoing = getOngoingTourney() ? true : false;
     if (isOngoing) {
       interaction.editReply(`Couldn't change maps, as this tourney has already started.`);
-    } else if (tourney.class === "Demo" && mapDivision === "Wood") {
-      interaction.editReply(`Couldn't change maps, since Demo doesn't have a Wood division.`);
+      // } else if (tourney.class === "Demo" && mapDivision === "Wood") {
+      //   interaction.editReply(`Couldn't change maps, since Demo doesn't have a Wood division.`);
     } else {
       if (tourney) {
         switch (mapDivision) {
@@ -60,7 +60,7 @@ Platinum / Gold: ${inlineCode(tourney.plat_gold_map)}
 Silver: ${inlineCode(tourney.silver_map)}
 Bronze: ${inlineCode(tourney.bronze_map)}
 Steel: ${inlineCode(tourney.steel_map)}
-${tourney.class === "Soldier" ? `Wood: ${inlineCode(tourney.wood_map)}` : ``}`);
+${tourney.class === "Soldier" ? `Wood: ${inlineCode(tourney.wood_map)}` : `Wood: ${inlineCode(tourney.wood_map)}`}`);
       }
     }
   },
