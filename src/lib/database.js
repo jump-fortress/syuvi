@@ -276,6 +276,7 @@ function getBestTourneyTimes(tournament_id) {
   return select.all(tournament_id);
 }
 
+// TODO: use display_name instead of discord_id to prefer text over embed @mentions which don't always display a profile
 function getTourneyDivisionTopTimes(tournament_id, division_name) {
   const select =
     db.prepare(`SELECT tournament_time.tournament_id, tournament_time.player_id, min(run_time) AS run_time, tournament_time.verified, player.discord_id, tournament_player.division FROM tournament_time
