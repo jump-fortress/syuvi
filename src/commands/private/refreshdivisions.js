@@ -22,12 +22,13 @@ export default {
       });
       if (confirmResponse.customId === "confirm") {
         const numUpdated = updateAllPlayerDivisions(await interaction.guild.members.fetch());
-        await confirmResponse.update({
+        console.log(numUpdated);
+        await interaction.editReply({
           content: `✅ Updated divisions for ${numUpdated} roles.`,
           components: [],
         });
       } else if (confirmResponse.customId === "cancel") {
-        await confirmResponse.update({
+        await interaction.editReply({
           content: `❌ Canceled command.`,
           components: [],
         });
