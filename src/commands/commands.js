@@ -14,6 +14,7 @@ import setdisplayname from "./private/setdisplayname.js";
 import setdivision from "./private/setdivision.js";
 import settourneymap from "./private/settourneymap.js";
 import verify from "./private/verify.js";
+import playersindivision from "./public/playersindivision.js";
 
 import forcetourneystate from "./test/forcetourneystate.js";
 
@@ -33,6 +34,7 @@ const allCommands = [
   setdivision,
   settourneymap,
   verify,
+  playersindivision,
 ];
 
 // only allow forcetourneystate in syuvi-test and local environments

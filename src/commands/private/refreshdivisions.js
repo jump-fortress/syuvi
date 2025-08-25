@@ -22,7 +22,6 @@ export default {
       });
       if (confirmResponse.customId === "confirm") {
         const numUpdated = updateAllPlayerDivisions(await interaction.guild.members.fetch());
-        console.log(numUpdated);
         await interaction.editReply({
           content: `✅ Updated divisions for ${numUpdated} roles.`,
           components: [],

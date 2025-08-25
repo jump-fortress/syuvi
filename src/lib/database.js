@@ -33,6 +33,12 @@ function getPlayerByDisplayName(display_name) {
   return select.get(display_name);
 }
 
+function getPlayersInDivision(division) {
+  const select = db.prepare(`SELECT * FROM player
+    WHERE ${division.class === "Soldier" ? "soldier_division" : "demo_division"} = ?`);
+  return select.all(division.name);
+}
+
 // update a player's display name
 function updatePlayerDisplayName(discord_id, display_name) {
   const update = db.prepare(`UPDATE player
@@ -357,6 +363,7 @@ export {
   getPlayer,
   getPlayerByID,
   getPlayerByDisplayName,
+  getPlayersInDivision,
   updatePlayerDisplayName,
   updatePlayerDivision,
   updateAllPlayerDivisions,
