@@ -23,11 +23,23 @@ function getTourneyMap(tourney, division) {
   }
 }
 
+// time = SS.sss
 function formatTime(time, verified = true) {
-  const minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time) - minutes * 60;
-  const ms = parseInt((time % 1).toFixed(2) * 100);
-  return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}.${ms < 10 ? `0${ms}` : ms}${verified ? "" : " ❔"}`;
+  let minutes = Math.floor(time / 60);
+  let seconds = Math.floor(time) - minutes * 60;
+  let centiseconds = Math.round((time % 1).toFixed(3) * 100);
+
+  if (centiseconds === 100) {
+    centiseconds = 0;
+    seconds++;
+    if (seconds === 60) {
+      seconds = 0;
+      minutes++;
+    }
+  }
+
+  const formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.${centiseconds.toString().padStart(2, "0")}${verified ? "" : " ❔"}`;
+  return formattedTime;
 }
 
 function getTimeSectionsArray(time) {
