@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> this branch now lives at https://github.com/syuvi-tf/syuvi-ex
+
 ## development
 
 install dependencies..
