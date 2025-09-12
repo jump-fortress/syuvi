@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits, roleMention, userMention } from "discord.js";
+import { SlashCommandBuilder, PermissionFlagsBits, roleMention, userMention, inlineCode } from "discord.js";
 import { createPlayer, updatePlayerDivision, getPlayer } from "../../lib/database.js";
 import { divisionRoleIds } from "../../lib/guild-ids.js";
 
@@ -54,13 +54,13 @@ export default {
     if (roleToRemove) {
       // if an old role exists, remove it
       await member.roles.remove(roleToRemove);
-      messageContent += `removed ${roleMention(roleToRemove.id)} from ${userMention(member.id)}\n`;
+      messageContent += `removed ${roleMention(roleToRemove.id)} from ${inlineCode(member.displayName)}\n`;
     }
     // don't add wood demo role
     if (division.name) {
       // if there is a role to add, add it
       await member.roles.add(roleToAdd);
-      messageContent += `added ${roleMention(roleToAdd.id)} to ${userMention(member.id)}`;
+      messageContent += `added ${roleMention(roleToAdd.id)} to ${inlineCode(member.displayName)}`;
     }
     updatePlayerDivision(member.id, division);
     if (messageContent !== "") {
@@ -70,7 +70,7 @@ export default {
       });
     } else {
       await interaction.editReply({
-        content: `❌ ${userMention(member.id)} doesn't have a ${division.class} role to remove.`,
+        content: `❌ ${inlineCode(member.displayName)} doesn't have a ${division.class} role to remove.`,
         allowedMentions: { users: [], roles: [] },
       });
     }
