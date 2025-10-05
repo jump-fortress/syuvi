@@ -34,6 +34,7 @@ function formatRunTime(time, verified) {
 async function updateRows(rows, times) {
   let maxRows = Math.max(
     ...[
+      times.diamond.length,
       times.platinum.length,
       times.gold.length,
       times.silver.length,
@@ -42,6 +43,12 @@ async function updateRows(rows, times) {
       times.wood.length,
     ],
   );
+
+  for (let i = 0; i < times.diamond.length; i++) {
+    const time = times.diamond[i];
+    const row = rows[i];
+    row.assign({ diamond_player: `'${time.display_name}`, diamond_time: time.run_time });
+  }
   for (let i = 0; i < times.platinum.length; i++) {
     const time = times.platinum[i];
     const row = rows[i];
@@ -98,7 +105,15 @@ async function createTourneySheet(tourney) {
   const tourney_idCell = sheet.getCellByA1("A57");
   titleCell.value = `${tourney.class} Tournament Standings (${tourney_date.toLocaleDateString("en-US", { month: "long", year: "numeric" })})`;
   tourney_idCell.value = `Tourney ID: ${tourney.id}`;
-  const mapCells = {
+  const mapCells = tourney.class === 'Soldier' ? {
+    diamond: sheet.getCellByA1("B3"),
+    platinum: sheet.getCellByA1("D3"),
+    gold: sheet.getCellByA1("F3"),
+    silver: sheet.getCellByA1("H3"),
+    bronze: sheet.getCellByA1("J3"),
+    steel: sheet.getCellByA1("L3"),
+    wood: sheet.getCellByA1("N3"),
+  } : {
     platinum: sheet.getCellByA1("B3"),
     gold: sheet.getCellByA1("D3"),
     silver: sheet.getCellByA1("F3"),
@@ -106,14 +121,16 @@ async function createTourneySheet(tourney) {
     steel: sheet.getCellByA1("J3"),
     wood: sheet.getCellByA1("L3"),
   };
+
+  if (tourney.class === "Soldier") {
+    mapCells.diamond.value = tourney.diamond_map;
+  }
   mapCells.platinum.value = tourney.plat_gold_map;
   mapCells.gold.value = tourney.plat_gold_map;
   mapCells.silver.value = tourney.silver_map;
   mapCells.bronze.value = tourney.bronze_map;
   mapCells.steel.value = tourney.steel_map;
-  // if (tourney.class === "Soldier") {
-  mapCells.wood.value = tourney.wood_map;
-  // }
+
   await sheet.saveUpdatedCells();
   sheet.loadHeaderRow(6); // header row is always 6
   updateSheetTimes(tourney);
@@ -132,6 +149,12 @@ async function updateSheetTimes(tourney) {
   const rows = await sheet.getRows();
   // sort and format dbTimes
   const times = {
+    diamond: dbTimes
+      .filter((time) => time.division === "Diamond")
+      .sort((a, b) => a.run_time - b.run_time)
+      .map((time) =>
+        Object.assign(time, { run_time: formatRunTime(time.run_time, time.verified) }),
+      ),
     platinum: dbTimes
       .filter((time) => time.division === "Platinum")
       .sort((a, b) => a.run_time - b.run_time)

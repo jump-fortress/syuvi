@@ -24,6 +24,12 @@ function startTourneyJob(datetime, channels) {
     createTourneySheet(tourney);
     updateSheetsJob();
     // send all times channels their division's map embed
+    if (tourney.class === "Soldier") {
+      channels.get(timesChannelIds.get("Diamond")).send({
+        content: `🏁 A ${tourney.class} tourney has started! The map is..`,
+        embeds: [await getMapEmbedByName(tourney.diamond_map)],
+      });
+    }
     channels.get(timesChannelIds.get("Platinum")).send({
       content: `🏁 A ${tourney.class} tourney has started! The map is..`,
       embeds: [await getMapEmbedByName(tourney.plat_gold_map)],
@@ -69,6 +75,12 @@ function endTourneyJob(datetime, channels, tourney) {
     // signupMessage.delete();
     //
     // send all times channels an end message and fastest times
+    if (tourney.class === "Soldier") {
+      channels.get(timesChannelIds.get("Diamond")).send({
+        content: `🏁 Tourney has ended! If you have a valid time to submit, please do so manually.`,
+        embeds: [getTourneyTopTimesEmbed(tourney, "Diamond", roles)],
+      });
+    }
     channels.get(timesChannelIds.get("Platinum")).send({
       content: `🏁 Tourney has ended! If you have a valid time to submit, please do so manually.`,
       embeds: [getTourneyTopTimesEmbed(tourney, "Platinum", roles)],

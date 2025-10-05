@@ -19,6 +19,7 @@ export default {
         .setDescription("division name")
         .setRequired(true)
         .addChoices(
+          { name: "Diamodn", value: "Diamond"},
           { name: "Platinum", value: "Platinum" },
           { name: "Gold", value: "Gold" },
           { name: "Silver", value: "Silver" },
@@ -36,6 +37,9 @@ export default {
       name: divisionName,
     };
 
+    if (division.name === "Diamond" && division.class === "Demo") {
+       await interaction.editReply(`❌ Diamond Demo is not a valid role.`);
+     } else {
     const playersInDivision = getPlayersInDivision(division);
 
     const embed = new EmbedBuilder()
@@ -48,5 +52,6 @@ export default {
       );
 
     interaction.editReply({ embeds: [embed] });
+     }
   },
 };

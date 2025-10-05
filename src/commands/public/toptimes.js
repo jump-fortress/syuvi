@@ -16,6 +16,7 @@ export default {
         .setName("division")
         .setDescription("division top times to display")
         .addChoices(
+          {name: "Diamond", value: "Diamond"},
           { name: "Platinum", value: "Platinum" },
           { name: "Gold", value: "Gold" },
           { name: "Silver", value: "Silver" },
@@ -32,7 +33,10 @@ export default {
     if (!tourney) {
       interaction.editReply(`Couldn't find a tourney to display a leaderboard for..`);
     } else {
-      if (!division_name) {
+      if (division.name === "Diamond" && division.class === "Demo") {
+       await interaction.editReply("There is no Diamond Demo leaderboard..");
+      }
+      else if (!division_name) {
         // no division name, use player's div if they have one
         const player = getPlayer(member.id) ?? createPlayer(member.id, member.displayName);
         const player_division_name =

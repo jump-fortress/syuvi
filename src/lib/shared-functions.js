@@ -7,6 +7,8 @@ function formatSteamURL(steam_id32) {
 
 function getTourneyMap(tourney, division) {
   switch (division) {
+    case "Diamond":
+      return tourney.diamond_map;
     case "Platinum":
     case "Gold":
       return tourney.plat_gold_map;
@@ -53,11 +55,11 @@ function isValidTime(time) {
 }
 
 function getDivisionNames(tourneyClass) {
-  const divisions = ["Platinum", "Gold", "Silver", "Bronze", "Steel", "Wood", "No Division"];
-
-  // if (tourneyClass === "Soldier") {
-  //divisions.push("Wood");
-  // }
+  const divisions = [];
+  if (tourneyClass === "Soldier") {
+    divisions.push("Diamond");
+  }
+  divisions.concat(["Platinum", "Gold", "Silver", "Bronze", "Steel", "Wood", "No Division"]);
 
   //divisions.push("No Division");
 

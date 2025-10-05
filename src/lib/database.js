@@ -129,10 +129,11 @@ function createTourney(tourney) {
   const activetourney = getActiveTourney();
   if (!activetourney) {
     const insert =
-      db.prepare(`INSERT OR IGNORE INTO tournament (class, plat_gold_map, silver_map, bronze_map, steel_map, wood_map, starts_at, ends_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
+      db.prepare(`INSERT OR IGNORE INTO tournament (class, diamond_map, plat_gold_map, silver_map, bronze_map, steel_map, wood_map, starts_at, ends_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
     insert.run(
       tourney.class,
+      tourney.diamond,
       tourney.plat_gold,
       tourney.silver,
       tourney.bronze,
@@ -149,13 +150,15 @@ function createTourney(tourney) {
 
 function updateTourneyMap(tourney) {
   const update = db.prepare(`UPDATE tournament
-    SET plat_gold_map = ?,
+    SET diamond_map = ?,
+    plat_gold_map = ?,
     silver_map = ?,
     bronze_map = ?,
     steel_map = ?,
     wood_map = ?
     WHERE id = ?`);
   update.run(
+    tourney.diamond_map,
     tourney.plat_gold_map,
     tourney.silver_map,
     tourney.bronze_map,

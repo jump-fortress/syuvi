@@ -180,6 +180,7 @@ class Tournament {
   /**
    *
    * @param {string} tourneyClass
+   * @param {string} diamondMap
    * @param {string} platGoldMap
    * @param {string} silverMap
    * @param {string} bronzeMap
@@ -190,6 +191,7 @@ class Tournament {
    */
   constructor(
     tourneyClass,
+    diamondMap,
     platGoldMap,
     silverMap,
     bronzeMap,
@@ -199,6 +201,7 @@ class Tournament {
     endsAt,
   ) {
     this.class = tourneyClass;
+    this.diamond = diamondMap;
     this.plat_gold = platGoldMap;
     this.silver = silverMap;
     this.bronze = bronzeMap;
@@ -256,13 +259,14 @@ async function executeCommand(interaction) {
     const submittedMapFields = submittedMapResponse.fields;
     const submittedTourney = new Tournament(
       tourneyClass,
+      tourneyClass === "Soldier"
+        ? submittedMapFields.getTextInputValue("diamond_map")
+        : null,
       submittedMapFields.getTextInputValue("plat_gold_map"),
       submittedMapFields.getTextInputValue("silver_map"),
       submittedMapFields.getTextInputValue("bronze_map"),
       submittedMapFields.getTextInputValue("steel_map"),
-      tourneyClass === "Soldier"
-        ? submittedMapFields.getTextInputValue("wood_map")
-        : submittedMapFields.getTextInputValue("wood_map"),
+      submittedMapFields.getTextInputValue("wood_map"),
       datetime,
       endDatetime,
     );
@@ -273,11 +277,12 @@ async function executeCommand(interaction) {
     // tourney confirmation message
     const tourneyResponse = await submittedMapResponse.reply({
       content: `${tourneyClass} tournament start date set to ${discordTimestamp}
+${tourneyClass === "Soldier" ? `Diamond Map: ${inlineCode(submittedTourney.diamond)}` : ``}
 Platinum / Gold Map: ${inlineCode(submittedTourney.plat_gold)}
 Silver Map: ${inlineCode(submittedTourney.silver)}
 Bronze Map: ${inlineCode(submittedTourney.bronze)}
 Steel Map: ${inlineCode(submittedTourney.steel)}
-${tourneyClass === "Soldier" ? `Wood Map: ${inlineCode(submittedTourney.wood)}` : `Wood Map: ${inlineCode(submittedTourney.wood)}`}`,
+Wood Map: ${inlineCode(submittedTourney.wood)}`,
       components: [confirmRow],
       withResponse: true,
     });

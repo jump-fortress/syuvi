@@ -130,3 +130,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 *.db
+/db_exports

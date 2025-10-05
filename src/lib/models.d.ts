@@ -15,6 +15,7 @@ export interface Player {
 export interface Tournament {
   id: string;
   class: string;
+  diamond_map: string?;
   plat_gold_map: string;
   silver_map: string;
   bronze_map: string;

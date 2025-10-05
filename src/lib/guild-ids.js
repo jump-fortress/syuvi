@@ -9,12 +9,13 @@ if (process.env.FLY_APP_NAME === "syuvi") {
   guildId = "1322534308413444220";
   clientId = "1364377893802872914";
   divisionRoleIds = new Map([
-    ["Platinum Soldier", "1322534308510040092"],
-    ["Gold Soldier", "1322534308510040090"],
-    ["Silver Soldier", "1322534308510040088"],
-    ["Bronze Soldier", "1322534308510040086"],
-    ["Steel Soldier", "1322534308510040084"],
-    ["Wood Soldier", "1364256052844957727"],
+    ["Diamond Soldier", "1322534308510040092"],
+    ["Platinum Soldier", "1322534308510040090"],
+    ["Gold Soldier", "1322534308510040088"],
+    ["Silver Soldier", "1322534308510040086"],
+    ["Bronze Soldier", "1322534308510040084"],
+    ["Steel Soldier", "1364256052844957727"],
+    ["Wood Soldier", "1424507695226159224"],
     ["Platinum Demo", "1322534308510040093"],
     ["Gold Demo", "1322534308510040091"],
     ["Silver Demo", "1322534308510040089"],
@@ -26,6 +27,7 @@ if (process.env.FLY_APP_NAME === "syuvi") {
   signupsChannelId = "1322534310397345828";
   faqChannelId = "1322534310150017051";
   timesChannelIds = new Map([
+    ["Diamond", "1422300082950111374"],
     ["Platinum", "1322534310720438286"],
     ["Gold", "1322534310720438287"],
     ["Silver", "1322534310720438288"],
@@ -37,6 +39,7 @@ if (process.env.FLY_APP_NAME === "syuvi") {
   guildId = "1364381421208207482";
   clientId = "1386902732660805774";
   divisionRoleIds = new Map([
+    ["Diamond Soldier", "1424508266209345673"],
     ["Platinum Soldier", "1365102656040734761"],
     ["Gold Soldier", "1365102716283650151"],
     ["Silver Soldier", "1365102762832171171"],
@@ -54,6 +57,7 @@ if (process.env.FLY_APP_NAME === "syuvi") {
   signupsChannelId = "1365091870341857310";
   faqChannelId = "1373060351414894593";
   timesChannelIds = new Map([
+    ["Diamond", "1424508551409438760"],
     ["Platinum", "1365091916982652978"],
     ["Gold", "1365091938201636865"],
     ["Silver", "1365091952697282591"],

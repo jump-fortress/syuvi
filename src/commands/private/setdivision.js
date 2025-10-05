@@ -21,6 +21,7 @@ export default {
         .setDescription("division name")
         .setRequired(true)
         .addChoices(
+          { name: "Diamond", value: "Diamond"},
           { name: "Platinum", value: "Platinum" },
           { name: "Gold", value: "Gold" },
           { name: "Silver", value: "Silver" },
@@ -42,10 +43,10 @@ export default {
       name: divisionName === "None" ? null : divisionName,
     };
 
-    //
-    // if (division.name === "Wood" && division.class === "Demo") {
-    //   await interaction.editReply(`❌ Wood Demo is not a valid role.`);
-    // } else {
+    
+     if (division.name === "Diamond" && division.class === "Demo") {
+       await interaction.editReply(`❌ Diamond Demo is not a valid role.`);
+     } else {
     const roleToAdd = member.guild.roles.cache.get(
       divisionRoleIds.get(`${division.name} ${division.class}`),
     );
@@ -74,6 +75,6 @@ export default {
         allowedMentions: { users: [], roles: [] },
       });
     }
-    // }
+    }
   },
 };
