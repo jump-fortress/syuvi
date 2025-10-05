@@ -1,4 +1,10 @@
-import { SlashCommandBuilder, PermissionFlagsBits, roleMention, userMention, inlineCode } from "discord.js";
+import {
+  SlashCommandBuilder,
+  PermissionFlagsBits,
+  roleMention,
+  userMention,
+  inlineCode,
+} from "discord.js";
 import { createPlayer, updatePlayerDivision, getPlayer } from "../../lib/database.js";
 import { divisionRoleIds } from "../../lib/guild-ids.js";
 
@@ -21,7 +27,7 @@ export default {
         .setDescription("division name")
         .setRequired(true)
         .addChoices(
-          { name: "Diamond", value: "Diamond"},
+          { name: "Diamond", value: "Diamond" },
           { name: "Platinum", value: "Platinum" },
           { name: "Gold", value: "Gold" },
           { name: "Silver", value: "Silver" },
@@ -43,38 +49,37 @@ export default {
       name: divisionName === "None" ? null : divisionName,
     };
 
-    
-     if (division.name === "Diamond" && division.class === "Demo") {
-       await interaction.editReply(`❌ Diamond Demo is not a valid role.`);
-     } else {
-    const roleToAdd = member.guild.roles.cache.get(
-      divisionRoleIds.get(`${division.name} ${division.class}`),
-    );
-    const roleToRemove = member.roles.cache.find((role) => role.name.includes(division.class));
-    let messageContent = ``;
-    if (roleToRemove) {
-      // if an old role exists, remove it
-      await member.roles.remove(roleToRemove);
-      messageContent += `removed ${roleMention(roleToRemove.id)} from ${inlineCode(member.displayName)}\n`;
-    }
-    // don't add wood demo role
-    if (division.name) {
-      // if there is a role to add, add it
-      await member.roles.add(roleToAdd);
-      messageContent += `added ${roleMention(roleToAdd.id)} to ${inlineCode(member.displayName)}`;
-    }
-    updatePlayerDivision(member.id, division);
-    if (messageContent !== "") {
-      await interaction.editReply({
-        content: messageContent,
-        allowedMentions: { users: [], roles: [] },
-      });
+    if (division.name === "Diamond" && division.class === "Demo") {
+      await interaction.editReply(`❌ Diamond Demo is not a valid role.`);
     } else {
-      await interaction.editReply({
-        content: `❌ ${inlineCode(member.displayName)} doesn't have a ${division.class} role to remove.`,
-        allowedMentions: { users: [], roles: [] },
-      });
-    }
+      const roleToAdd = member.guild.roles.cache.get(
+        divisionRoleIds.get(`${division.name} ${division.class}`),
+      );
+      const roleToRemove = member.roles.cache.find((role) => role.name.includes(division.class));
+      let messageContent = ``;
+      if (roleToRemove) {
+        // if an old role exists, remove it
+        await member.roles.remove(roleToRemove);
+        messageContent += `removed ${roleMention(roleToRemove.id)} from ${inlineCode(member.displayName)}\n`;
+      }
+      // don't add wood demo role
+      if (division.name) {
+        // if there is a role to add, add it
+        await member.roles.add(roleToAdd);
+        messageContent += `added ${roleMention(roleToAdd.id)} to ${inlineCode(member.displayName)}`;
+      }
+      updatePlayerDivision(member.id, division);
+      if (messageContent !== "") {
+        await interaction.editReply({
+          content: messageContent,
+          allowedMentions: { users: [], roles: [] },
+        });
+      } else {
+        await interaction.editReply({
+          content: `❌ ${inlineCode(member.displayName)} doesn't have a ${division.class} role to remove.`,
+          allowedMentions: { users: [], roles: [] },
+        });
+      }
     }
   },
 };
