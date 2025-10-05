@@ -259,9 +259,7 @@ async function executeCommand(interaction) {
     const submittedMapFields = submittedMapResponse.fields;
     const submittedTourney = new Tournament(
       tourneyClass,
-      tourneyClass === "Soldier"
-        ? submittedMapFields.getTextInputValue("diamond_map")
-        : null,
+      tourneyClass === "Soldier" ? submittedMapFields.getTextInputValue("plat_gold_map") : null,
       submittedMapFields.getTextInputValue("plat_gold_map"),
       submittedMapFields.getTextInputValue("silver_map"),
       submittedMapFields.getTextInputValue("bronze_map"),
