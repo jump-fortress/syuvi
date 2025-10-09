@@ -55,11 +55,19 @@ function isValidTime(time) {
 }
 
 function getDivisionNames(tourneyClass) {
-  const divisions = [];
+  let divisions = [];
   if (tourneyClass === "Soldier") {
     divisions.push("Diamond");
   }
-  divisions.concat(["Platinum", "Gold", "Silver", "Bronze", "Steel", "Wood", "No Division"]);
+  divisions = divisions.concat([
+    "Platinum",
+    "Gold",
+    "Silver",
+    "Bronze",
+    "Steel",
+    "Wood",
+    "No Division",
+  ]);
 
   //divisions.push("No Division");
 

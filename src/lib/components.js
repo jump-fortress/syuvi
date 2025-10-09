@@ -28,13 +28,12 @@ const confirmRow = new ActionRowBuilder().addComponents(
  * @returns {EmbedBuilder[]} an array of the initial signup embeds for the tournament
  */
 function getEmptyDivisionEmbeds(tourney_class, roles) {
-
-  const divisions = [];
+  let divisions = [];
   if (tourney_class === "Soldier") {
-  divisions.push("Diamond");
-}
-  divisions.concat(["Platinum", "Gold", "Silver", "Bronze", "Steel"]);
-  divisions.push("No Division");
+    divisions.push("Diamond");
+  }
+
+  divisions = divisions.concat(["Platinum", "Gold", "Silver", "Bronze", "Steel", "No Division"]);
 
   const embeds = [];
   for (const division of divisions) {
@@ -80,7 +79,7 @@ function getMapSelectModal(tourneyClass) {
     .setTitle(`${tourneyClass} Tourney Maps`);
   const platGoldMap = new TextInputBuilder()
     .setCustomId("plat_gold_map")
-    .setLabel(`${tourneyClass === 'Soldier' ? 'Diamond /': '' } Platinum / Gold Map`)
+    .setLabel(`${tourneyClass === "Soldier" ? "Diamond /" : ""} Platinum / Gold Map`)
     .setStyle(TextInputStyle.Short);
   const silverMap = new TextInputBuilder()
     .setCustomId("silver_map")
