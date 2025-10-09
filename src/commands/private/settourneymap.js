@@ -14,7 +14,7 @@ export default {
         .setDescription("map division")
         .setRequired(true)
         .addChoices(
-          { name: "Diamond", value: "Diamond"},
+          { name: "Diamond", value: "Diamond" },
           { name: "PlatGold", value: "PlatGold" },
           { name: "Silver", value: "Silver" },
           { name: "Bronze", value: "Bronze" },
@@ -60,7 +60,7 @@ export default {
         updateTourneyMap(tourney);
 
         interaction.editReply(`${tourney.class} tournament maps updated to..
-${tourneyClass === "Soldier" ? `Diamond Map: ${inlineCode(tourney.diamond_map)}` : ``}
+${tourney.class === "Soldier" ? `Diamond Map: ${inlineCode(tourney.diamond_map)}` : ``}
 Platinum / Gold: ${inlineCode(tourney.plat_gold_map)}
 Silver: ${inlineCode(tourney.silver_map)}
 Bronze: ${inlineCode(tourney.bronze_map)}
