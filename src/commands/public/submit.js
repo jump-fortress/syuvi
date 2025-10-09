@@ -53,7 +53,7 @@ async function getTempusTime(player, map, tourneyclass) {
 
 function getVerifiedEmbed(user, time, time_id, tempusPRId, tourneyclass, map) {
   const embed = new EmbedBuilder().setColor("A69ED7").setThumbnail(user.avatarURL())
-    .setDescription(`TF2PJ | (${tourneyclass}) ${userMention(user.id)} submitted ${formatTime(time)}
+    .setDescription(`TF2PJ | (${tourneyclass}) ${userMention(user.id)} submitted ${time}
 on ${map}
 ${subtext(`time ID: ${time_id}`)}
 
@@ -144,7 +144,7 @@ ${subtext(`format: MM:SS.ss / SS.ss`)}`,
         const time_id = createTourneyTime(tourney.id, player.id, tempusTime.time, true);
         const embed = getVerifiedEmbed(
           interaction.user,
-          tempusTime.time,
+          formatTime(tempusTime.time),
           time_id,
           tempusTime.id,
           tourney.class,
