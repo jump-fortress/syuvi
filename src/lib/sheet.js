@@ -98,29 +98,32 @@ async function createTourneySheet(tourney) {
   // populate month/year in header, maps per division
   const sheet = await getSheetByName(monthAndYear);
   await sheet.updateProperties({ hidden: false });
-  await sheet.loadCells("B3:M3");
-  await sheet.loadCells("B1:M1");
+  await sheet.loadCells("B3:O3");
+  await sheet.loadCells("B1:O1");
   await sheet.loadCells("A57:B81"); // TODO: 25 additional rows as a temporary measure
   const titleCell = sheet.getCellByA1("B1");
   const tourney_idCell = sheet.getCellByA1("A57");
   titleCell.value = `${tourney.class} Tournament Standings (${tourney_date.toLocaleDateString("en-US", { month: "long", year: "numeric" })})`;
   tourney_idCell.value = `Tourney ID: ${tourney.id}`;
-  const mapCells = tourney.class === 'Soldier' ? {
-    diamond: sheet.getCellByA1("B3"),
-    platinum: sheet.getCellByA1("D3"),
-    gold: sheet.getCellByA1("F3"),
-    silver: sheet.getCellByA1("H3"),
-    bronze: sheet.getCellByA1("J3"),
-    steel: sheet.getCellByA1("L3"),
-    wood: sheet.getCellByA1("N3"),
-  } : {
-    platinum: sheet.getCellByA1("B3"),
-    gold: sheet.getCellByA1("D3"),
-    silver: sheet.getCellByA1("F3"),
-    bronze: sheet.getCellByA1("H3"),
-    steel: sheet.getCellByA1("J3"),
-    wood: sheet.getCellByA1("L3"),
-  };
+  const mapCells =
+    tourney.class === "Soldier"
+      ? {
+          diamond: sheet.getCellByA1("B3"),
+          platinum: sheet.getCellByA1("D3"),
+          gold: sheet.getCellByA1("F3"),
+          silver: sheet.getCellByA1("H3"),
+          bronze: sheet.getCellByA1("J3"),
+          steel: sheet.getCellByA1("L3"),
+          wood: sheet.getCellByA1("N3"),
+        }
+      : {
+          platinum: sheet.getCellByA1("B3"),
+          gold: sheet.getCellByA1("D3"),
+          silver: sheet.getCellByA1("F3"),
+          bronze: sheet.getCellByA1("H3"),
+          steel: sheet.getCellByA1("J3"),
+          wood: sheet.getCellByA1("L3"),
+        };
 
   if (tourney.class === "Soldier") {
     mapCells.diamond.value = tourney.diamond_map;
@@ -130,9 +133,10 @@ async function createTourneySheet(tourney) {
   mapCells.silver.value = tourney.silver_map;
   mapCells.bronze.value = tourney.bronze_map;
   mapCells.steel.value = tourney.steel_map;
+  mapCells.wood.value = tourney.steel_map;
 
   await sheet.saveUpdatedCells();
-  sheet.loadHeaderRow(6); // header row is always 6
+  await sheet.loadHeaderRow(6); // header row is always 6
   updateSheetTimes(tourney);
 }
 
