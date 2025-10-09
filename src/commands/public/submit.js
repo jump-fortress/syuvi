@@ -53,7 +53,7 @@ async function getTempusTime(player, map, tourneyclass) {
 
 function getVerifiedEmbed(user, time, time_id, tempusPRId, tourneyclass, map) {
   const embed = new EmbedBuilder().setColor("A69ED7").setThumbnail(user.avatarURL())
-    .setDescription(`TF2PJ | (${tourneyclass}) ${userMention(user.id)} submitted ${time}
+    .setDescription(`TF2PJ | (${tourneyclass}) ${userMention(user.id)} submitted ${formatTime(time)}
 on ${map}
 ${subtext(`time ID: ${time_id}`)}
 
@@ -79,11 +79,11 @@ export default {
     .setName("submit")
     .setDescription("submit a time for the current tourney")
     .addStringOption((option) =>
-      option.setName("time").setDescription("format: MM:SS.ss").setRequired(true),
+      option.setName("time").setDescription("format: MM:SS.ss").setRequired(false),
     ),
   async execute(interaction) {
     await interaction.deferReply(); //thinking...
-    const time = interaction.options.getString("time");
+    const time = interaction.options.getString("time") ?? null;
     const member = interaction.member;
     const player = getPlayer(member.id) ?? createPlayer(member.id, member.displayName);
     const tourney = getOngoingTourney();
@@ -106,7 +106,7 @@ export default {
       noTempusIDOrDivision(interaction, player);
     }
     // invalid time
-    else if (!isValidTime(time)) {
+    else if (time !== null && !isValidTime(time)) {
       await interaction.editReply({
         content: `Couldn't submit your time, as it's not in the expected format.
 ${subtext(`format: MM:SS.ss / SS.ss`)}`,
@@ -116,11 +116,14 @@ ${subtext(`format: MM:SS.ss / SS.ss`)}`,
     else {
       const map = getTourneyMap(tourney, division);
       const response = await getTempusTime(player, map, tourney_class);
-      const timeParts = getTimeSectionsArray(time);
+      const timeParts = getTimeSectionsArray(time ?? response?.result.duration.toString());
+      // use tempus time for time, if time isn't given
       const timeSeconds =
-        timeParts.length === 2
-          ? parseFloat(time) //SS.ss
-          : parseFloat(`${parseInt(timeParts[0]) * 60 + parseInt(timeParts[1])}.${timeParts[2]}`);
+        time === null
+          ? response?.result.duration
+          : timeParts.length === 2
+            ? parseFloat(time) //SS.ss
+            : parseFloat(`${parseInt(timeParts[0]) * 60 + parseInt(timeParts[1])}.${timeParts[2]}`);
       const tempusTime = {
         id: response?.result.id,
         date: new Date(parseInt(response?.result.date * 1000)),
@@ -141,7 +144,7 @@ ${subtext(`format: MM:SS.ss / SS.ss`)}`,
         const time_id = createTourneyTime(tourney.id, player.id, tempusTime.time, true);
         const embed = getVerifiedEmbed(
           interaction.user,
-          time,
+          tempusTime.time,
           time_id,
           tempusTime.id,
           tourney.class,
