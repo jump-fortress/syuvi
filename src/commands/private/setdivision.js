@@ -1,10 +1,4 @@
-import {
-  SlashCommandBuilder,
-  PermissionFlagsBits,
-  roleMention,
-  userMention,
-  inlineCode,
-} from "discord.js";
+import { SlashCommandBuilder, PermissionFlagsBits, roleMention, inlineCode } from "discord.js";
 import { createPlayer, updatePlayerDivision, getPlayer } from "../../lib/database.js";
 import { divisionRoleIds } from "../../lib/guild-ids.js";
 
