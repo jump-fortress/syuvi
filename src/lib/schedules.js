@@ -193,6 +193,7 @@ async function updateSignupsJob(channel) {
     await channel.bulkDelete(messagesToDelete);
 
     const players = getTourneyPlayers(tourney.id);
+
     /** @type {{[x: string]: any[]}} */
     const playersByDivision = Object.groupBy(players, ({ division }) =>
       division ? division : "No Division",
@@ -202,11 +203,27 @@ async function updateSignupsJob(channel) {
     for (const [divisionIdx, divisionEmbed] of divisionEmbeds.entries()) {
       const division = divisions[divisionIdx];
       const playersInDivision = playersByDivision[division];
-      const playerMentions = playersInDivision
-        ? inlineCode(playersInDivision.map((player) => player.display_name).join(", "))
-        : "\u200b";
-      const embed = EmbedBuilder.from(divisionEmbed).setDescription(playerMentions);
-      await channel.send({ embeds: [embed] });
+
+      // split players to account for 4096 character message limit
+      if (!playersInDivision) {
+        await channel.send({ embeds: [divisionEmbed] });
+      } else {
+        let playersInDivisionSplit = [];
+        const playersPerEmbed = 200;
+        for (let i = 0; i < playersInDivision.length; i += playersPerEmbed) {
+          playersInDivisionSplit.push(playersInDivision.slice(i, i + playersPerEmbed));
+        }
+        for (let i = 0; i < playersInDivisionSplit.length; i++) {
+          const embed = EmbedBuilder.from(divisionEmbed).setDescription(
+            playersInDivisionSplit[i]
+              ? inlineCode(
+                  playersInDivisionSplit[i].map((player) => player.display_name).join(", "),
+                )
+              : "\u200b",
+          );
+          await channel.send({ embeds: [embed] });
+        }
+      }
     }
   });
 }

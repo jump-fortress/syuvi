@@ -19,7 +19,7 @@ export default {
         .setDescription("division name")
         .setRequired(true)
         .addChoices(
-          { name: "Diamodn", value: "Diamond"},
+          { name: "Diamond", value: "Diamond" },
           { name: "Platinum", value: "Platinum" },
           { name: "Gold", value: "Gold" },
           { name: "Silver", value: "Silver" },
@@ -38,20 +38,35 @@ export default {
     };
 
     if (division.name === "Diamond" && division.class === "Demo") {
-       await interaction.editReply(`❌ Diamond Demo is not a valid role.`);
-     } else {
-    const playersInDivision = getPlayersInDivision(division);
+      await interaction.editReply(`❌ Diamond Demo is not a valid role.`);
+    } else {
+      const playersInDivision = getPlayersInDivision(division);
 
-    const embed = new EmbedBuilder()
-      .setColor("A69ED7")
-      .setAuthor({ name: `${division.name} ${division.class}` })
-      .setDescription(
-        playersInDivision
-          ? inlineCode(playersInDivision.map((player) => player.display_name).join(", "))
-          : "\u200b",
-      );
+      // split players to account for 4096 character message limit
+      let playersInDivisionSplit = [];
+      const playersPerEmbed = 200;
+      for (let i = 0; i < playersInDivision.length; i += playersPerEmbed) {
+        playersInDivisionSplit.push(playersInDivision.slice(i, i + playersPerEmbed));
+      }
 
-    interaction.editReply({ embeds: [embed] });
-     }
+      for (let i = 0; i < playersInDivisionSplit.length; i++) {
+        const embed = new EmbedBuilder()
+          .setColor("A69ED7")
+          .setAuthor({ name: `${division.name} ${division.class}` })
+          .setDescription(
+            playersInDivisionSplit[i]
+              ? inlineCode(
+                  playersInDivisionSplit[i].map((player) => player.display_name).join(", "),
+                )
+              : "\u200b",
+          );
+
+        if (i === 0) {
+          interaction.editReply({ embeds: [embed] });
+        } else {
+          interaction.followUp({ embeds: [embed] });
+        }
+      }
+    }
   },
 };

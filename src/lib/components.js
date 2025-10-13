@@ -33,7 +33,15 @@ function getEmptyDivisionEmbeds(tourney_class, roles) {
     divisions.push("Diamond");
   }
 
-  divisions = divisions.concat(["Platinum", "Gold", "Silver", "Bronze", "Steel", "No Division"]);
+  divisions = divisions.concat([
+    "Platinum",
+    "Gold",
+    "Silver",
+    "Bronze",
+    "Steel",
+    "Wood",
+    "No Division",
+  ]);
 
   const embeds = [];
   for (const division of divisions) {
