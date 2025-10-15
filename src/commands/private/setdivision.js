@@ -49,7 +49,9 @@ export default {
       const roleToAdd = member.guild.roles.cache.get(
         divisionRoleIds.get(`${division.name} ${division.class}`),
       );
-      const roleToRemove = member.roles.cache.find((role) => role.name.includes(division.class));
+      const roleToRemove = member.roles.cache.find((role) =>
+        role.name.endsWith(" " + division.class),
+      );
       let messageContent = ``;
       if (roleToRemove) {
         // if an old role exists, remove it
