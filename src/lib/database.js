@@ -279,7 +279,7 @@ function getBestTourneyTimes(tournament_id) {
   const select =
     db.prepare(`SELECT tournament_time.tournament_id, tournament_time.player_id, min(run_time) AS run_time, tournament_time.verified, player.display_name, tournament_player.division FROM tournament_time
     JOIN player ON tournament_time.player_id = player.id
-    JOIN tournament_player ON tournament_time.player_id = tournament_player.player_id
+    JOIN tournament_player ON tournament_time.player_id = tournament_player.player_id AND tournament_time.tournament_id = tournament_player.tournament_id
     WHERE tournament_time.tournament_id = ?
     GROUP BY player.id`);
   return select.all(tournament_id);
@@ -288,12 +288,12 @@ function getBestTourneyTimes(tournament_id) {
 // TODO: use display_name instead of discord_id to prefer text over embed @mentions which don't always display a profile
 function getTourneyDivisionTopTimes(tournament_id, division_name) {
   const select =
-    db.prepare(`SELECT tournament_time.tournament_id, tournament_time.player_id, min(run_time) AS run_time, tournament_time.verified, player.discord_id, tournament_player.division FROM tournament_time
+    db.prepare(`SELECT tournament_time.tournament_id, tournament_time.player_id, min(run_time) as run_time, tournament_time.verified, player.discord_id, tournament_player.division FROM tournament_time
     JOIN player ON tournament_time.player_id = player.id
-    JOIN tournament_player ON tournament_time.player_id = tournament_player.player_id
+    JOIN tournament_player ON tournament_time.player_id = tournament_player.player_id AND tournament_time.tournament_id = tournament_player.tournament_id
     WHERE tournament_time.tournament_id = ? AND tournament_player.division = ?
     GROUP BY player.id
-    ORDER BY run_time
+	ORDER BY run_time
     LIMIT 8`);
   return select.all(tournament_id, division_name);
 }
