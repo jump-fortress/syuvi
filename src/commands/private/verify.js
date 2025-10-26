@@ -11,7 +11,7 @@ import { updateSheetTimes } from "../../lib/sheet.js";
 
 function getForceVerifiedEmbed(player_id, time, time_id, tourneyclass, map) {
   const embed = new EmbedBuilder().setColor("A69ED7")
-    .setDescription(`TF2PJ | (${tourneyclass}) Verified a ${time} for ${userMention(player_id)}
+    .setDescription(`Jump Fortress | (${tourneyclass}) Verified a ${time} for ${userMention(player_id)}
 on ${map}
 ${subtext(`time ID: ${time_id}`)}
 

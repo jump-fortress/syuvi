@@ -53,7 +53,7 @@ async function getTempusTime(player, map, tourneyclass) {
 
 function getVerifiedEmbed(user, time, time_id, tempusPRId, tourneyclass, map) {
   const embed = new EmbedBuilder().setColor("A69ED7").setThumbnail(user.avatarURL())
-    .setDescription(`TF2PJ | (${tourneyclass}) ${userMention(user.id)} submitted ${time}
+    .setDescription(`Jump Fortress | (${tourneyclass}) ${userMention(user.id)} submitted ${time}
 on ${map}
 ${subtext(`time ID: ${time_id}`)}
 
@@ -66,7 +66,7 @@ function getUnverifiedEmbed(user, time, time_id, tempusPRTime, tourneyclass, map
   const seconds = String(Math.floor(tempusPRTime % 60)).padStart(2, "0");
   const ms = String(Math.floor((tempusPRTime % 1) * 100)).padStart(2, "0");
   const embed = new EmbedBuilder().setColor("F97583").setThumbnail(user.avatarURL())
-    .setDescription(`TF2PJ | (${tourneyclass}) ${userMention(user.id)} submitted ${time}
+    .setDescription(`Jump Fortress | (${tourneyclass}) ${userMention(user.id)} submitted ${time}
 on ${map}
 ${subtext(`time ID: ${time_id}`)}
 

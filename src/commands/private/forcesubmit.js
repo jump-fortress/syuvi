@@ -18,7 +18,7 @@ import { updateSheetTimes } from "../../lib/sheet.js";
 
 function getForceSubmitEmbed(player_id, time, time_id, tourneyclass, map) {
   const embed = new EmbedBuilder().setColor("A69ED7")
-    .setDescription(`TF2PJ | (${tourneyclass}) force submitted a ${time} for ${userMention(player_id)}
+    .setDescription(`Jump Fortress | (${tourneyclass}) force submitted a ${time} for ${userMention(player_id)}
 on ${map}
 ${subtext(`time ID: ${time_id}`)}
 
