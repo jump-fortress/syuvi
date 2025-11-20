@@ -1,7 +1,7 @@
 ![syuvi](https://github.com/user-attachments/assets/03daef07-fc0b-41db-bb3a-f052a7640241)
 
 > [!IMPORTANT]
-> this project is maintained, but future development lives at https://github.com/syuvi-tf/syuvi-ex
+> this project is maintained, but future development lives at https://github.com/jump-fortress/site
 
 ## Command List
 
