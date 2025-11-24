@@ -203,6 +203,14 @@ function getAllTourneys() {
   return select.all();
 }
 
+function cancelActiveTourney(tourney_id) {
+  const update = db.prepare(`UPDATE tournament
+    SET starts_at = strftime('2002-%m-%dT%H:%M:%SZ', 'now'),
+    ends_at = strftime('2002-%m-%dT%H:%M:%SZ', 'now')
+    WHERE id = ?`);
+  update.run(tourney_id);
+}
+
 // insert new player in a tourney, update them otherwise
 function createTourneyPlayer(tournament_id, player_id, division_name) {
   const upsert =
@@ -378,6 +386,7 @@ export {
   getActiveTourney,
   getRecentTourney,
   getAllTourneys,
+  cancelActiveTourney,
   createTourneyPlayer,
   removeTourneyPlayer,
   getTourneyPlayer,

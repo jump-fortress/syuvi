@@ -5,6 +5,7 @@ import submit from "./public/submit.js";
 import toptimes from "./public/toptimes.js";
 
 import createtourney from "./private/createtourney.js";
+import canceltourney from "./private/canceltourney.js";
 import echo from "./private/echo.js";
 import forcesubmit from "./private/forcesubmit.js";
 import profilebyname from "./private/profilebyname.js";
@@ -25,6 +26,7 @@ const allCommands = [
   submit,
   toptimes,
   createtourney,
+  canceltourney,
   echo,
   forcesubmit,
   profilebyname,
