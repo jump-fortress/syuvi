@@ -19,6 +19,7 @@
 
 <ins>Administrator Commands</ins>\
 `/createtourney [class] [month] [day] (offset)` - create and open signups for a new tournament at midnight + `(offset)` UTC\
+`/canceltourney` - cancel an upcoming tournament\
 `/settourneymap [division] [map] ` - change the upcoming tourney's map before the tourney has started\
 `/refreshdivisions` - update division(s) for every player with at least one division discord role\
 `/removetime [time_id]` - remove a player's time\
