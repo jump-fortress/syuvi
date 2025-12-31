@@ -105,29 +105,17 @@ async function createTourneySheet(tourney) {
   const tourney_idCell = sheet.getCellByA1("A82");
   titleCell.value = `${tourney.class} Tournament Standings (${tourney_date.toLocaleDateString("en-US", { month: "long", year: "numeric" })})`;
   tourney_idCell.value = `Tourney ID: ${tourney.id}`;
-  const mapCells =
-    tourney.class === "Soldier"
-      ? {
-          diamond: sheet.getCellByA1("B3"),
-          platinum: sheet.getCellByA1("D3"),
-          gold: sheet.getCellByA1("F3"),
-          silver: sheet.getCellByA1("H3"),
-          bronze: sheet.getCellByA1("J3"),
-          steel: sheet.getCellByA1("L3"),
-          wood: sheet.getCellByA1("N3"),
-        }
-      : {
-          platinum: sheet.getCellByA1("B3"),
-          gold: sheet.getCellByA1("D3"),
-          silver: sheet.getCellByA1("F3"),
-          bronze: sheet.getCellByA1("H3"),
-          steel: sheet.getCellByA1("J3"),
-          wood: sheet.getCellByA1("L3"),
-        };
+  const mapCells = {
+    diamond: sheet.getCellByA1("B3"),
+    platinum: sheet.getCellByA1("D3"),
+    gold: sheet.getCellByA1("F3"),
+    silver: sheet.getCellByA1("H3"),
+    bronze: sheet.getCellByA1("J3"),
+    steel: sheet.getCellByA1("L3"),
+    wood: sheet.getCellByA1("N3"),
+  };
 
-  if (tourney.class === "Soldier") {
-    mapCells.diamond.value = tourney.diamond_map;
-  }
+  mapCells.diamond.value = tourney.diamond_map;
   mapCells.platinum.value = tourney.plat_gold_map;
   mapCells.gold.value = tourney.plat_gold_map;
   mapCells.silver.value = tourney.silver_map;

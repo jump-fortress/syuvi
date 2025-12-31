@@ -37,35 +37,29 @@ export default {
       name: divisionName,
     };
 
-    if (division.name === "Diamond" && division.class === "Demo") {
-      await interaction.editReply(`❌ Diamond Demo is not a valid role.`);
-    } else {
-      const playersInDivision = getPlayersInDivision(division);
+    const playersInDivision = getPlayersInDivision(division);
 
-      // split players to account for 4096 character message limit
-      let playersInDivisionSplit = [];
-      const playersPerEmbed = 200;
-      for (let i = 0; i < playersInDivision.length; i += playersPerEmbed) {
-        playersInDivisionSplit.push(playersInDivision.slice(i, i + playersPerEmbed));
-      }
+    // split players to account for 4096 character message limit
+    let playersInDivisionSplit = [];
+    const playersPerEmbed = 200;
+    for (let i = 0; i < playersInDivision.length; i += playersPerEmbed) {
+      playersInDivisionSplit.push(playersInDivision.slice(i, i + playersPerEmbed));
+    }
 
-      for (let i = 0; i < playersInDivisionSplit.length; i++) {
-        const embed = new EmbedBuilder()
-          .setColor("A69ED7")
-          .setAuthor({ name: `${division.name} ${division.class}` })
-          .setDescription(
-            playersInDivisionSplit[i]
-              ? inlineCode(
-                  playersInDivisionSplit[i].map((player) => player.display_name).join(", "),
-                )
-              : "\u200b",
-          );
+    for (let i = 0; i < playersInDivisionSplit.length; i++) {
+      const embed = new EmbedBuilder()
+        .setColor("A69ED7")
+        .setAuthor({ name: `${division.name} ${division.class}` })
+        .setDescription(
+          playersInDivisionSplit[i]
+            ? inlineCode(playersInDivisionSplit[i].map((player) => player.display_name).join(", "))
+            : "\u200b",
+        );
 
-        if (i === 0) {
-          interaction.editReply({ embeds: [embed] });
-        } else {
-          interaction.followUp({ embeds: [embed] });
-        }
+      if (i === 0) {
+        interaction.editReply({ embeds: [embed] });
+      } else {
+        interaction.followUp({ embeds: [embed] });
       }
     }
   },

@@ -259,7 +259,7 @@ async function executeCommand(interaction) {
     const submittedMapFields = submittedMapResponse.fields;
     const submittedTourney = new Tournament(
       tourneyClass,
-      tourneyClass === "Soldier" ? submittedMapFields.getTextInputValue("plat_gold_map") : null,
+      submittedMapFields.getTextInputValue("plat_gold_map"),
       submittedMapFields.getTextInputValue("plat_gold_map"),
       submittedMapFields.getTextInputValue("silver_map"),
       submittedMapFields.getTextInputValue("bronze_map"),
@@ -275,7 +275,7 @@ async function executeCommand(interaction) {
     // tourney confirmation message
     const tourneyResponse = await submittedMapResponse.reply({
       content: `${tourneyClass} tournament start date set to ${discordTimestamp}
-${tourneyClass === "Soldier" ? `Diamond Map: ${inlineCode(submittedTourney.diamond)}` : ``}
+Diamond Map: ${inlineCode(submittedTourney.diamond)}
 Platinum / Gold Map: ${inlineCode(submittedTourney.plat_gold)}
 Silver Map: ${inlineCode(submittedTourney.silver)}
 Bronze Map: ${inlineCode(submittedTourney.bronze)}

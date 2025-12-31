@@ -56,9 +56,7 @@ function isValidTime(time) {
 
 function getDivisionNames(tourneyClass) {
   let divisions = [];
-  if (tourneyClass === "Soldier") {
-    divisions.push("Diamond");
-  }
+  divisions.push("Diamond");
   divisions = divisions.concat([
     "Platinum",
     "Gold",

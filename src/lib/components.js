@@ -29,9 +29,7 @@ const confirmRow = new ActionRowBuilder().addComponents(
  */
 function getEmptyDivisionEmbeds(tourney_class, roles) {
   let divisions = [];
-  if (tourney_class === "Soldier") {
-    divisions.push("Diamond");
-  }
+  divisions.push("Diamond");
 
   divisions = divisions.concat([
     "Platinum",

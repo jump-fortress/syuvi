@@ -60,7 +60,7 @@ export default {
         updateTourneyMap(tourney);
 
         interaction.editReply(`${tourney.class} tournament maps updated to..
-${tourney.class === "Soldier" ? `Diamond Map: ${inlineCode(tourney.diamond_map)}` : ``}
+Diamond Map: ${inlineCode(tourney.diamond_map)}
 Platinum / Gold: ${inlineCode(tourney.plat_gold_map)}
 Silver: ${inlineCode(tourney.silver_map)}
 Bronze: ${inlineCode(tourney.bronze_map)}
