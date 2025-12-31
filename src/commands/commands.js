@@ -2,6 +2,7 @@ import link from "./public/link.js";
 import profile from "./public/profile.js";
 import randommap from "./public/randommap.js";
 import submit from "./public/submit.js";
+import pr from "./public/pr.js";
 import toptimes from "./public/toptimes.js";
 
 import createtourney from "./private/createtourney.js";
@@ -24,6 +25,7 @@ const allCommands = [
   profile,
   randommap,
   submit,
+  pr,
   toptimes,
   createtourney,
   canceltourney,
