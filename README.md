@@ -15,7 +15,8 @@
 `/submit [time]` - submit a verified (Tempus PR) or unverified (slower than Tempus PR) time for the ongoing tournament's map, according to player division.\
 `/toptimes (division)` - view Top 8 times for the ongoing (or previous) tournament\
 `/profile (@user)` - view a player's profile (display name, divisions, tempus & steam profile)\
-`/randommap (tier) (rating)` - get a random map from the current Tempus map list
+`/randommap (tier) (rating)` - get a random map from the current Tempus map list\
+`/pr [class] [map]` - display Tempus PR for a map
 
 <ins>Administrator Commands</ins>\
 `/createtourney [class] [month] [day] (offset)` - create and open signups for a new tournament at midnight + `(offset)` UTC\
