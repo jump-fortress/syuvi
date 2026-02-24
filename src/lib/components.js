@@ -85,7 +85,7 @@ function getMapSelectModal(tourneyClass) {
     .setTitle(`${tourneyClass} Tourney Maps`);
   const platGoldMap = new TextInputBuilder()
     .setCustomId("plat_gold_map")
-    .setLabel(`${tourneyClass === "Soldier" ? "Diamond /" : ""} Platinum / Gold Map`)
+    .setLabel("Diamond / Platinum / Gold Map")
     .setStyle(TextInputStyle.Short);
   const silverMap = new TextInputBuilder()
     .setCustomId("silver_map")
@@ -195,7 +195,7 @@ ${player.demo_division ? roleMention(divisionRoleIds.get(player.demo_division + 
         name: "Profiles",
         value: `${
           player.tempus_id
-            ? `${hyperlink("Tempus Plaza", `https://tempusplaza.xyz/players/${player.tempus_id}`)}
+            ? `${hyperlink("Tempus Plaza", `https://tempusplaza.com/players/${player.tempus_id}`)}
 ${hyperlink("Tempus", `https://tempus2.xyz/players/${player.tempus_id}`)}
 ${hyperlink("Steam", formatSteamURL(player.steam_id))}`
             : `${inlineCode("No Linked Tempus ID")}`
