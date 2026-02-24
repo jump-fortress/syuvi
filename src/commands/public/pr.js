@@ -73,7 +73,7 @@ export default {
     // no tempus PR, or tempus API down
     if (!tempusTime.id || !tempusTime.date || !tempusTime.time) {
       await interaction.editReply({
-        content: `Couldn't find a Tempus PR. If the Tempus API isn't down, check that the full map name is correct.`,
+        content: `Couldn't find a Tempus PR. Check that the full map name is correct.`,
         embeds: [],
       });
     }
@@ -89,6 +89,7 @@ export default {
       );
       await interaction.editReply({ embeds: [embed] });
     }
+    // todo fail message
     // unverified
   },
 };
