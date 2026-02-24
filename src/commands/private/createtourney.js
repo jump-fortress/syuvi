@@ -174,6 +174,14 @@ const command = new SlashCommandBuilder()
       .setDescription("positive offset in hours from UTC midnight (start of day)")
       .setMinValue(1)
       .setMaxValue(23),
+  )
+  .addIntegerOption((option) =>
+    option
+      .setName("length")
+      .setRequired(false)
+      .setDescription("length of tourney in days (default 2)")
+      .setMinValue(1)
+      .setMaxValue(31),
   );
 
 class Tournament {
@@ -223,6 +231,7 @@ async function executeCommand(interaction) {
   const day = dayOption < 10 ? "0" + dayOption : dayOption;
   const offsetHoursOption = interaction.options.getInteger("offset") ?? 0;
   const offsetHours = offsetHoursOption < 10 ? "0" + offsetHoursOption : offsetHoursOption;
+  const length = interaction.options.getInteger("length") ?? 2;
   const now = new Date(new Date().toUTCString());
 
   let year = now.getUTCFullYear();
@@ -234,7 +243,7 @@ async function executeCommand(interaction) {
 
   const datetime = `${year}-${month}-${day}T${offsetHours}:00:00Z`;
   const endDate = new Date(datetime);
-  endDate.setDate(endDate.getDate() + 2);
+  endDate.setDate(endDate.getDate() + length);
 
   const endDatetime = endDate.toISOString();
   const discordTimestamp = time(new Date(datetime));
