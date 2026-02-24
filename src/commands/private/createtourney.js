@@ -174,6 +174,13 @@ const command = new SlashCommandBuilder()
       .setDescription("positive offset in hours from UTC midnight (start of day)")
       .setMinValue(1)
       .setMaxValue(23),
+  )
+  .addIntegerOption((option) =>
+    option
+      .setName("duration")
+      .setDescription("duration of the tournament in days (number value)")
+      .setRequired(true)
+      .setMinValue(1),
   );
 
 class Tournament {
@@ -188,6 +195,7 @@ class Tournament {
    * @param {string} woodMap
    * @param {string} startsAt
    * @param {string} endsAt
+   * @param {int} duration
    */
   constructor(
     tourneyClass,
@@ -199,6 +207,7 @@ class Tournament {
     woodMap,
     startsAt,
     endsAt,
+    duration,
   ) {
     this.class = tourneyClass;
     this.diamond = diamondMap;
@@ -209,6 +218,7 @@ class Tournament {
     this.wood = woodMap;
     this.starts_at = startsAt;
     this.ends_at = endsAt;
+    this.duration = duration;
   }
 }
 
@@ -223,6 +233,7 @@ async function executeCommand(interaction) {
   const day = dayOption < 10 ? "0" + dayOption : dayOption;
   const offsetHoursOption = interaction.options.getInteger("offset") ?? 0;
   const offsetHours = offsetHoursOption < 10 ? "0" + offsetHoursOption : offsetHoursOption;
+  const duration = interaction.options.getInteger("duration");
   const now = new Date(new Date().toUTCString());
 
   let year = now.getUTCFullYear();
@@ -234,7 +245,7 @@ async function executeCommand(interaction) {
 
   const datetime = `${year}-${month}-${day}T${offsetHours}:00:00Z`;
   const endDate = new Date(datetime);
-  endDate.setDate(endDate.getDate() + 2);
+  endDate.setDate(endDate.getDate() + duration;
 
   const endDatetime = endDate.toISOString();
   const discordTimestamp = time(new Date(datetime));
